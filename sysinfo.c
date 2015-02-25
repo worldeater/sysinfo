@@ -23,7 +23,6 @@ void   usage(void);
 double get_load(void);
 int    get_cputemp(void);
 int    get_battlife(void);
-double get_diskusage(const char *diskname);
 
 
 double
@@ -68,7 +67,7 @@ main(void)
   load = get_load();
   cputemp = get_cputemp();
   battlife = get_battlife();
-  blidx = bgmax * (battlife / 100);
+  blidx = (bgmax * battlife) / 100;
 
   loadfmt = "";
   if      (load > 5) loadfmt = blink?"fg=red,bold":"fg=black";
@@ -94,7 +93,7 @@ main(void)
 
   wprintf(
     L"#[%s]⚒#[default]%.2f"
-    " #[%s]♥#[default]%d°"
+    " #[%s]♥#[default]%d°C"
     " #[%s]⚡#[default]#[reverse,fg=black,bold,%s]%lc#[default]"
     , loadfmt, load
     , cputempfmt, cputemp
