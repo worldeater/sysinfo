@@ -69,22 +69,18 @@ main(void)
   battlife = get_battlife();
   blidx = (bgmax * battlife) / 100;
 
-  loadfmt = "";
   if      (load > 5) loadfmt = blink?"fg=red,bold":"fg=black";
-  else if (load > 3)  loadfmt = "fg=red";
-  else if (load > 2)  loadfmt = "fg=yellow,bold";
-  else if (load > 1)  loadfmt = "fg=green";
-  else                loadfmt = "fg=blue,bold";
+  else if (load > 3) loadfmt = "fg=red";
+  else if (load > 2) loadfmt = "fg=yellow,bold";
+  else if (load > 1) loadfmt = "fg=green";
+  else               loadfmt = "fg=blue,bold";
 
-  cputempfmt = "";
   if      (cputemp > 90) cputempfmt = blink?"fg=red,bold":"fg=black";
   else if (cputemp > 80) cputempfmt = "fg=red";
   else if (cputemp > 70) cputempfmt = "fg=yellow,bold";
   else if (cputemp > 60) cputempfmt = "fg=green";
   else                   cputempfmt = "fg=blue,bold";
 
-  battlifefmt = "";
-  battgraphfmt = "";
   if      (blidx == 0)    battlifefmt = "fg=red",         battgraphfmt = blink?"fg=red,bg=black":"bg=red";
   else if (battlife < 33) battlifefmt = "fg=red",         battgraphfmt = "bg=red";
   else if (battlife < 66) battlifefmt = "fg=yellow,bold", battgraphfmt = "bg=yellow";
@@ -93,11 +89,12 @@ main(void)
 
   wprintf(
     L"#[%s]⚒#[default]%.2f"
-    " #[%s]♥#[default]%d°C"
     " #[%s]⚡#[default]#[reverse,fg=black,bold,%s]%lc#[default]"
+    " #[%s]♥#[default]%d°C"
     , loadfmt, load
-    , cputempfmt, cputemp
     , battlifefmt, battgraphfmt, bargraph[blidx]
+    , cputempfmt, cputemp
   );
+
 }
 
